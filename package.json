@@ -6,7 +6,10 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "moment": "^2.24.0",
-    "fs": "0.0.1-security"
+    "ms": "^2.1.2",
+    "mysql": "^2.18.1",
+    "table": "^6.0.3"
   }
 }
