@@ -4,11 +4,25 @@ const ready = require('./events/ready');
 const message = require('./events/message');
 const fs = require('fs');
 const settings = require('./settings.json');
+var mysql      = require('mysql');
+const { connect } = require('http2');
 
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'bot'
+  });
+  connection.connect((err)=> {
+      if (err){
+          throw err;
+      }
+      console.log('MySql Connected Successfully.');
+  });
 bot.commands = new discord.Collection();
 bot.aliases = new discord.Collection();
 ready.ready(bot);
-message.message(bot, settings, discord);
+message.message(bot, settings, discord, connection);
 
 fs.readdir("./commands/", (err, files) => {
 
@@ -44,7 +58,7 @@ bot.loadCommand = (commandName) => {
 
 bot.unloadCommand = async (commandName) => {
     try {
-        if (!commandName) return `\`${commandName}\` I Can't Find This Command!`;
+        if (!commandName) return `\`${commandName}\` I can't find this command!`;
 
         if (commandName.shutdown) await commandName.shutdown(bot);
         delete require.cache[require.resolve(`../commands/${commandName}.js`)];
@@ -53,3 +67,12 @@ bot.unloadCommand = async (commandName) => {
         return [console.error(err)];
     }
 };
+
+bot.on("guildCreate", function(guild){
+    let guildid = guild.id
+    let prefix = 'v!';
+    var sql = `INSERT INTO guilds (guildid,prefix) VALUES ('`+ guildid +`','`+ prefix +`')`;
+    connection.query(sql, function (err, result) {
+      if (err) throw err;
+    });
+});
