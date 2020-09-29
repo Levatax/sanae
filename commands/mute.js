@@ -33,9 +33,8 @@ exports.run = async(bot, message, args, connection) => {
     if(!reason) return message.channel.send("Please add reason and try again. `prefix`mute @user 10m reason")
     await(spammer.addRole(role.id));
     message.channel.send(`Muted User: <@${spammer.id}> \nDuration: ${ms(ms(time))} \nReason: ${reason}`);
-    
-    var sql = `INSERT INTO punishments (type,guild,user,admin,duration,reason,channel) VALUES ('Mute','${message.guild.id}','${spammer.id}','${message.member.id}','${time}','${reason}','${message.channel.id}')`;
-    connection.query(sql, function (err, result) {
+
+    connection.query("INSERT INTO punishments (type,guild,user,admin,duration,reason,channel) VALUES ('Mute', ?, ?, ?, ?, ?, ?)", [message.guild.id, spammer.id, message.member.id, time, reason, message.channel.id], function (err, result) {
       if (err) throw err;
       console.log('successfully added to sql');
     });
@@ -53,5 +52,5 @@ exports.run = async(bot, message, args, connection) => {
 
 module.exports.help = {
     name: 'mute',
-    aliases: ['tempmute']
+    aliases: [`tempmute`]
 };

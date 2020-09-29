@@ -9,7 +9,7 @@ exports.run = async(bot, message, args, connection) => {
     if (!message.guild.member(user).kickable) return message.reply(`I don't have permission to kick this user`);
     
     console.log(user.user.tag);
-    user.kick({reason: reason});
+    await user.kick({reason: reason});
     
     const embed = new Discord.RichEmbed()
     .setColor('RANDOM')
@@ -18,10 +18,9 @@ exports.run = async(bot, message, args, connection) => {
     .addField('Kicked User:', `${user.user.tag} (${user.id})`)
     .addField('Moderator:', `${message.author.tag} (${message.author.id})`)
     .addField('Reason:', reason);
-    message.channel.send(embed);
+    await message.channel.send(embed);
 
-    var sql = `INSERT INTO punishments (type,guild,user,admin,duration,reason,channel) VALUES ('Kick','${message.guild.id}','${user.id}','${message.member.id}','-','${reason}','${message.channel.id}')`;
-    connection.query(sql, function (err, result) {
+    connection.query("INSERT INTO punishments (type,guild,user,admin,duration,reason,channel) VALUES ('Kick', ?, ?, ?,'-', ?, ?)", [message.guild.id, user.id, message.member.id, reason, message.channel.id], function (err, result) {
       if (err) throw err;
       console.log('successfully added to sql');
     });

@@ -15,8 +15,7 @@ exports.run = async(bot, message, args, connection) => {
     }
   }
 
-    var sql = `SELECT * FROM punishments WHERE guild='${message.guild.id}' AND user='${user}'`;
-    connection.query(sql, function (err, result) {
+    connection.query("SELECT * FROM punishments WHERE guild=? AND user=?", [message.guild.id, user], function (err, result) {
       let data = [
         ["ID", "Type", "Moderator", "Duration", "Reason", "Time"]
       ];

@@ -1,5 +1,5 @@
 {
-    "prefix" :"prefix",
+    "prefix" :"v!",
     "token" : "token",
     "owner": "ownerid"
 }
