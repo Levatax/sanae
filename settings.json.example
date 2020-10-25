@@ -1,5 +1,9 @@
 {
     "prefix" :"v!",
     "token" : "token",
-    "owner": "ownerid"
+    "owner": "ownerid",
+    "host":"databasehost",
+    "user": "databaseuser",
+    "password": "databasepass",
+    "db": "databasename"
 }

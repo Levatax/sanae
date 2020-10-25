@@ -8,10 +8,10 @@ var mysql      = require('mysql');
 const { connect } = require('http2');
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'bot'
+    host     : settings.host,
+    user     : settings.user,
+    password : settings.password,
+    database : settings.db
   });
   connection.connect((err)=> {
       if (err){
