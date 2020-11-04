@@ -7,8 +7,8 @@ exports.run = async(bot, message, args, connection) => {
     connection.query("UPDATE guilds SET prefix=? WHERE guildid=?", [prefix, guildid], function (err, result) {
       if (err) throw err;
       message.channel.send("prefix changed succesffully to "+ prefix);
-    });
-      
+
+    });  
 };
 
 module.exports.help = {

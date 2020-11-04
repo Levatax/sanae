@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const {table} = require('table');
 exports.run = async(bot, message, args, connection) => {
+  if (!message.author.hasPermission('VIEW_AUDIT_LOG')) return [message.channel.send(`You don't have permission`)];
   let user;
   if (message.mentions.users.first() === undefined){
     user = args[0];

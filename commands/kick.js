@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 
 exports.run = async(bot, message, args, connection) => {
+    if (!message.author.hasPermission('KICK_MEMBERS')) return [message.channel.send(`You don't have permission`)];
+
     let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     let reason = args.slice(1).join(' ');
 
@@ -14,7 +16,6 @@ exports.run = async(bot, message, args, connection) => {
     const embed = new Discord.RichEmbed()
     .setColor('RANDOM')
     .setTimestamp()
-    .addField('Punishment:', 'Kick From Server')
     .addField('Kicked User:', `${user.user.tag} (${user.id})`)
     .addField('Moderator:', `${message.author.tag} (${message.author.id})`)
     .addField('Reason:', reason);

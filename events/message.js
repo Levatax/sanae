@@ -4,10 +4,12 @@ module.exports = {
         bot.on('message', async message => {
             
             let guildid = message.guild.id;
+
             var sql = `SELECT prefix FROM guilds WHERE guildid='`+ guildid +`'`;
+            var prefix = "";
             connection.query(sql, function (err, result) {
-            if (err) throw err;
-            let prefix = result[0].prefix;
+            if (result.length == 0) prefix = settings.prefix;
+            if (result.length == 1) prefix = result[0].prefix;
             if (message.author.bot) return;
             if (message.channel.type === "dm") return;
             let args = message.content.slice(prefix.length).trim().split(' ');
