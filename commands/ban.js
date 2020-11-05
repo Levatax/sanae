@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 exports.run = async(bot, message, args, connection) => {
-  if (!message.author.hasPermission('BAN_MEMBERS')) return [message.channel.send(`You don't have permission`)];
+  if (!message.member.hasPermission('BAN_MEMBERS')) return [message.channel.send(`You don't have permission`)];
     let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     let reason = args.slice(1).join(' ');
 
