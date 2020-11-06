@@ -4,7 +4,7 @@
   "main": "bot.js",
   "author": "Levatax",
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "discord.js": "^12.4.1",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "moment": "^2.24.0",

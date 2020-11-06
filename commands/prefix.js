@@ -7,13 +7,13 @@ exports.run = async(bot, message, args, connection) => {
     connection.query(sql, function (err, result) {
       if (result.length == 0) {
         connection.query("INSERT INTO guilds (prefix,guildid) VALUES (?,?)", [prefix, guildid], function (err, result) {
-          message.channel.send("prefix changed succesffully to "+ prefix);
+          message.channel.send("Prefix is now "+ prefix);
         })
       };
       if (result.length == 1) {    
         connection.query("UPDATE guilds SET prefix=? WHERE guildid=?", [prefix, guildid], function (err, result) {
         if (err) throw err;
-        message.channel.send("prefix changed succesffully to "+ prefix);
+        message.channel.send("Prefix is now "+ prefix);
       });};
     });
 };

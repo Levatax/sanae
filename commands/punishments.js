@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const {table} = require('table');
 exports.run = async(bot, message, args, connection) => {
-  if (!message.member.hasPermission('VIEW_AUDIT_LOG')) return [message.channel.send(`You don't have permission`)];
+  if (!message.member.hasPermission('VIEW_AUDIT_LOG')) return [message.channel.send(`Lacking permission to perform such action.`)];
   let user;
   if (message.mentions.users.first() === undefined){
     user = args[0];
@@ -18,7 +18,7 @@ exports.run = async(bot, message, args, connection) => {
 
     connection.query("SELECT * FROM punishments WHERE guild=? AND user=?", [message.guild.id, user], function (err, result) {
       let data = [
-        ["ID", "Type", "Moderator", "Duration", "Reason", "Time"]
+        ["ID", "Type", "Moderator", "Duration", "Reason", "Date"]
       ];
       if (err) throw err;
       for(var i=0;i<result.length;i++){
