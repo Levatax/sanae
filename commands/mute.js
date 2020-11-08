@@ -11,13 +11,14 @@ exports.run = async(bot, message, args, connection) => {
     
     if(!role){
       try{
-        role = await message.guild.createRole({
+        role = await message.guild.roles.create({data:{
+
           name: "Muted",
           color: "#818080",
-          permissions:[]
+          permissions:[]}
         })
-        message.guild.channels.forEach(async (channel, id) => {
-          await channel.overwritePermissions(role, {
+        message.guild.channels.cache.forEach(async (channel, id) => {
+          await channel.updateOverwrite(role, {
             SEND_MESSAGES: false,
             ADD_REACTIONS: false
           });
