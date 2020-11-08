@@ -6,7 +6,7 @@ exports.run = async(bot, message, args, connection) => {
     let spammer = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
 
     if(!spammer) return message.channel.send("Please specify user to perform action upon.");
-    if(!spammer.hasPermission("MANAGE_MESSAGES")) return message.reply("Lacking permission to perform such action.");
+    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Lacking permission to perform such action.");
     let role = message.guild.roles.cache.find(r => r.name === "Muted");
     
     if(!role){
