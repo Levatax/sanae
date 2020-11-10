@@ -1,20 +1,36 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
-exports.run = async(bot, message, args) => {
-
-    if (!message.member.hasPermission("MANAGE_EMOJIS")) return [message.channel.send(`yetkin olsa`)];
-
-    let url = args[0]
-    let name = args[1]
-    
-    if (!url) return message.channel.send('Please specify URL of emote to add.');
-    if (!name) return message.channel.send('Please specify name of the new emote.');
-    message.guild.emojis.create(url,name)
-    .then(emoji => message.channel.send(`Successfully created new emote \`${emoji.name}\`. Preview: ${emoji}`))
+exports.run = async (bot, message, args) => {
+  var url = "";
+  var name = "";
+  if (!message.member.hasPermission("MANAGE_EMOJIS"))
+    return [message.channel.send(`You must have \`MANAGE_EMOJIS\` permission to perform this action.`)];
+  let emoji = args[0];
+  var emojiid = emoji.match(/\d/g);
+  emojiid = emojiid.join("");
+  var emote = Discord.Util.parseEmoji(emoji);
+  if (emote.animated === true) {
+    url = `https://cdn.discordapp.com/emojis/${emojiid}.gif`;
+  }
+  if (emote.animated === false) {
+    url = `https://cdn.discordapp.com/emojis/${emojiid}.png`;
+  }
+  if (!args[1]) {
+    name = emote.name;
+  } else {
+    name = args[1];
+  }
+  message.guild.emojis
+    .create(url, name)
+    .then((emoji) =>
+      message.channel.send(
+        `Created new emoji called \`${emoji.name}\`. Preview: ${emoji}`
+      )
+    )
     .catch(console.error);
 };
 
 module.exports.help = {
-    name: 'emoji',
-    aliases: []
+  name: "addemoji",
+  aliases: ["ae","emoji"],
 };
