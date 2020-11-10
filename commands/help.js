@@ -15,7 +15,7 @@ exports.run = async(bot, message, args) => {
               },
               {
                 "name": "<a:bit2:773994133496528896> Utility",
-                "value": "v!clear msgnumber\nv!prefix newprefix\nv!ping\nv!emoji url name\nv!avatar @user\nv!getemoji emoji",
+                "value": "v!clear msgnumber\nv!prefix newprefix\nv!ping\nv!emoji theemoji name(optional)\nv!avatar @user\nv!getemoji emoji",
                 "inline": true
               },
               {
