@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 exports.run = async(bot, message, args) => {
 
-    if (!message.member.hasPermission('MANAGE_MESSAGES')) return [message.channel.send(`yetkin mi varmış`)];
+    if (!message.member.hasPermission('MANAGE_MESSAGES')) return [message.channel.send(`Lacking permission to perform such action.`)];
 
     let number = parseInt(args.join(' '));
 
